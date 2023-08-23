@@ -114,7 +114,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT DATE_TRUNC('year', time) as year, SUM(kpi_alert_count) as total_alerts\nFROM kpi_1d\nWHERE device_identifier IN (${device_identifier})\nGROUP BY year\nORDER BY year;",
+          "rawSql": "SELECT DATE_TRUNC('year', time) as year, SUM(kpi_alert_count) as total_alerts\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nGROUP BY year\nORDER BY year;",
           "refId": "A",
           "sql": {
             "columns": [
@@ -135,7 +135,7 @@
           }
         }
       ],
-      "title": "Yearly Alert Summary for Device ID ${device_identifier}",
+      "title": "Yearly Alert Summary for Organization ID ${org_identifier}",
       "type": "barchart"
     },
     {
@@ -330,7 +330,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT kpi_type_code, COUNT(*) as occurrences\nFROM kpi_1d\nWHERE kpi_value_last < kpi_alert_condition_lower_limit_last OR kpi_value_last > kpi_alert_condition_upper_limit_last\nAND device_identifier IN (${device_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code\nORDER BY occurrences DESC;\n",
+          "rawSql": "SELECT kpi_type_code, COUNT(*) as occurrences\nFROM kpi_1d\nWHERE kpi_value_last < kpi_alert_condition_lower_limit_last OR kpi_value_last > kpi_alert_condition_upper_limit_last\nAND org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code\nORDER BY occurrences DESC;\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -351,7 +351,7 @@
           }
         }
       ],
-      "title": "The number of times each KPIs went **Above or Below** the alert threshold for Device ID ${device_identifier}",
+      "title": "The number of times each KPIs went **Above or Below** the alert threshold for Organization ID ${org_identifier}",
       "type": "bargauge"
     },
     {
@@ -549,7 +549,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT kpi_type_code, COUNT(*) as occurrences\nFROM kpi_1d\nWHERE kpi_value_last > kpi_alert_condition_upper_limit_last \nAND device_identifier IN (${device_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code\nORDER BY occurrences DESC;\n",
+          "rawSql": "SELECT kpi_type_code, COUNT(*) as occurrences\nFROM kpi_1d\nWHERE kpi_value_last > kpi_alert_condition_upper_limit_last \nAND org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code\nORDER BY occurrences DESC;\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -570,7 +570,7 @@
           }
         }
       ],
-      "title": "The number of times each KPIs went **Above** the alert threshold for Device ID ${device_identifier}",
+      "title": "The number of times each KPIs went **Above** the alert threshold for Organization ID ${org_identifier}",
       "type": "bargauge"
     },
     {
@@ -768,7 +768,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT kpi_type_code, COUNT(*) as occurrences\nFROM kpi_1d\nWHERE kpi_value_last < kpi_alert_condition_lower_limit_last\nAND device_identifier IN (${device_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code\nORDER BY occurrences DESC;\n",
+          "rawSql": "SELECT kpi_type_code, COUNT(*) as occurrences\nFROM kpi_1d\nWHERE kpi_value_last < kpi_alert_condition_lower_limit_last\nAND org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code\nORDER BY occurrences DESC;\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -789,7 +789,7 @@
           }
         }
       ],
-      "title": "The number of times each KPIs went **Below** the alert threshold for Device ID ${device_identifier}",
+      "title": "The number of times each KPIs went **Below** the alert threshold for Organization ID ${org_identifier}",
       "type": "bargauge"
     },
     {
@@ -1015,7 +1015,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT kpi_type_code, SUM(kpi_alert_count) as total_alerts\nFROM kpi_1d\nWHERE device_identifier IN (${device_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code\nORDER BY total_alerts DESC\nLIMIT 10; -- Top 5 KPIs",
+          "rawSql": "SELECT kpi_type_code, SUM(kpi_alert_count) as total_alerts\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code\nORDER BY total_alerts DESC\nLIMIT 10; -- Top 5 KPIs",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1036,7 +1036,7 @@
           }
         }
       ],
-      "title": "Top Number of KPIs with Most Alerts for Device ID ${device_identifier} ",
+      "title": "Top Number of KPIs with Most Alerts for Organization ID ${org_identifier} ",
       "type": "barchart"
     },
     {
@@ -1261,7 +1261,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT kpi_type_code, SUM(kpi_alert_count) as total_alerts\nFROM kpi_1d\nWHERE device_identifier IN (${device_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code;\n",
+          "rawSql": "SELECT kpi_type_code, SUM(kpi_alert_count) as total_alerts\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code;\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1282,7 +1282,7 @@
           }
         }
       ],
-      "title": "The number of KPI samples that met the alert condition for each KPI type for Device ID ${device_identifier}",
+      "title": "The number of KPI samples that met the alert condition for each KPI type for Organization ID ${org_identifier}",
       "type": "barchart"
     },
     {
@@ -1383,7 +1383,7 @@
           "editorMode": "code",
           "format": "time_series",
           "rawQuery": true,
-          "rawSql": "SELECT time,  kpi_value_avg\nFROM kpi_1d\nWHERE device_identifier IN (${device_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month';",
+          "rawSql": "SELECT time,  kpi_value_avg\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month';",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1404,7 +1404,7 @@
           }
         }
       ],
-      "title": "Average KPI value over time for Device ID ${device_identifier}",
+      "title": "Average KPI value over time for Organization ID ${org_identifier}",
       "type": "timeseries"
     },
     {
@@ -1505,7 +1505,7 @@
           "editorMode": "code",
           "format": "time_series",
           "rawQuery": true,
-          "rawSql": "SELECT \n    time,\n    AVG(kpi_alert_count) AS avg_alerts\nFROM kpi_1d\nWHERE device_identifier IN (${device_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY time\n",
+          "rawSql": "SELECT \n    time,\n    AVG(kpi_alert_count) AS avg_alerts\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY time\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1526,7 +1526,7 @@
           }
         }
       ],
-      "title": "Average alert count over time for Device ID ${device_identifier}",
+      "title": "Average alert count over time for Organization ID ${org_identifier}",
       "type": "timeseries"
     },
     {
@@ -1608,7 +1608,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT \n    date_trunc('month', time) AS month, \n    AVG(kpi_alert_count) AS avg_alerts\n  FROM kpi_1d\nWHERE device_identifier = ${device_identifier}\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY \n    date_trunc('month', time)\nORDER BY \n    month;\n",
+          "rawSql": "SELECT \n    date_trunc('month', time) AS month, \n    AVG(kpi_alert_count) AS avg_alerts\n  FROM kpi_1d\nWHERE org_identifier = ${org_identifier}\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY \n    date_trunc('month', time)\nORDER BY \n    month;\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1629,7 +1629,7 @@
           }
         }
       ],
-      "title": "The density or intensity of average alerts count over time for Device ID ${device_identifier}",
+      "title": "The density or intensity of average alerts count over time for Organization ID ${org_identifier}",
       "type": "heatmap"
     },
     {
@@ -1696,7 +1696,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT SUM(kpi_alert_count) as total_alerts\nFROM kpi_1d\nWHERE device_identifier IN (${device_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month';",
+          "rawSql": "SELECT SUM(kpi_alert_count) as total_alerts\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month';",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1717,7 +1717,7 @@
           }
         }
       ],
-      "title": "KPI Alert Count for Device ID ${device_identifier}",
+      "title": "KPI Alert Count for Organization ID ${org_identifier}",
       "transformations": [],
       "type": "stat"
     },
@@ -1784,7 +1784,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT kpi_alert_condition_type_last, COUNT(*) as count\nFROM kpi_1d\nWHERE device_identifier IN (${device_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_alert_condition_type_last;\n",
+          "rawSql": "SELECT kpi_alert_condition_type_last, COUNT(*) as count\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_alert_condition_type_last;\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1805,7 +1805,7 @@
           }
         }
       ],
-      "title": "The distribution of different alert conditions for Device ID ${device_identifier}",
+      "title": "The distribution of different alert conditions for Organization ID ${org_identifier}",
       "type": "piechart"
     },
     {
@@ -2000,7 +2000,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT time, kpi_type_code, kpi_value_last, kpi_alert_condition_lower_limit_last, kpi_alert_condition_upper_limit_last\nFROM kpi_1d\nWHERE device_identifier IN (${device_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nAND kpi_alert_count = 0\nAND (kpi_value_last < kpi_alert_condition_lower_limit_last + 10 OR kpi_value_last > kpi_alert_condition_upper_limit_last - 10);\n\n",
+          "rawSql": "SELECT time, kpi_type_code, kpi_value_last, kpi_alert_condition_lower_limit_last, kpi_alert_condition_upper_limit_last\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nAND kpi_alert_count = 0\nAND (kpi_value_last < kpi_alert_condition_lower_limit_last + 10 OR kpi_value_last > kpi_alert_condition_upper_limit_last - 10);\n\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -2021,7 +2021,7 @@
           }
         }
       ],
-      "title": "KPIs Close to Alert Thresholds for Device ID ${device_identifier}",
+      "title": "KPIs Close to Alert Thresholds for Organization ID ${org_identifier}",
       "type": "bargauge"
     },
     {
@@ -2246,7 +2246,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT DATE_TRUNC('month', time) as month, kpi_type_code, AVG(kpi_value_avg) as monthly_avg\nFROM kpi_1d\nWHERE device_identifier IN (${device_identifier})\nGROUP BY month, kpi_type_code\nORDER BY month, kpi_type_code;",
+          "rawSql": "SELECT DATE_TRUNC('month', time) as month, kpi_type_code, AVG(kpi_value_avg) as monthly_avg\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nGROUP BY month, kpi_type_code\nORDER BY month, kpi_type_code;",
           "refId": "A",
           "sql": {
             "columns": [
@@ -2267,7 +2267,7 @@
           }
         }
       ],
-      "title": "All time Monthly Average of KPIs for Device ID ${device_identifier}",
+      "title": "All time Monthly Average of KPIs for Organization ID ${org_identifier}",
       "type": "barchart"
     },
     {
@@ -2464,7 +2464,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT * FROM kpi_1d \nWHERE device_identifier IN (${device_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month';\n",
+          "rawSql": "SELECT * FROM kpi_1d \nWHERE org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month';\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -2486,7 +2486,7 @@
           "table": "kpi_1d"
         }
       ],
-      "title": "All data for Device ID ${device_identifier}",
+      "title": "All data for Organization ID ${org_identifier}",
       "type": "table"
     },
     {
@@ -2554,7 +2554,7 @@
               },
               {
                 "props": {
-                  "text": ".gf-form-label--variable {\n    color: #e74536 !Important;\n}\n.grafana-app {\n    background: #f7f5f0 !important;\n}\n\n.css-60onds {\n    padding-top: 130px !Important;\n}\n\n.css-15okvyg {\n    height: 80px !Important;\n}\n.css-1m01c8l {\n    width: 131px !Important;\n    height: 71px !Important;\n}\n\nh6 {\n    color: #03050d !important;\n    font-size: 1.1rem;\n    -webkit-font-smoothing: antialiased;\n}"
+                  "text": ".gf-form-label--variable {\n    color: #e74536 !Important;\n}\n.grafana-app {\n    background: #f7f5f0 !important;\n}\n\n.css-60onds {\n    padding-top: 130px !Important;\n}\n\n.css-15okvyg {\n    height: 80px !Important;\n}\n.css-1m01c8l {\n    width: 131px !Important;\n    height: 71px !Important;\n}\n\nh6 {\n    color: #03050d !important;\n    font-size: 1.1rem;\n    -webkit-font-smoothing: antialiased;\n}\n"
                 },
                 "type": "style"
               },
@@ -2580,22 +2580,22 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "4064542920",
-          "value": "4064542920"
+          "selected": true,
+          "text": "93003",
+          "value": "93003"
         },
         "datasource": {
           "type": "postgres",
           "uid": "P052245A3190431CB"
         },
-        "definition": "SELECT DISTINCT device_identifier FROM kpi_1d ORDER BY device_identifier;\n",
+        "definition": "SELECT DISTINCT org_identifier FROM kpi_1d ORDER BY org_identifier;\n",
         "hide": 0,
         "includeAll": true,
-        "label": "Device Identifier",
+        "label": "Organization Identifier",
         "multi": false,
-        "name": "device_identifier",
+        "name": "org_identifier",
         "options": [],
-        "query": "SELECT DISTINCT device_identifier FROM kpi_1d ORDER BY device_identifier;\n",
+        "query": "SELECT DISTINCT org_identifier FROM kpi_1d ORDER BY org_identifier;\n",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -2660,8 +2660,8 @@
     "hidden": true
   },
   "timezone": "Europe/Amsterdam",
-  "title": "Device Performance",
-  "uid": "afc8c7b8-e08c-4bfa-9186-920d8c3aa1ad",
-  "version": 13,
+  "title": "Organization Performance",
+  "uid": "d0e693b4-839d-4d5d-aff8-2a61d6fa8452",
+  "version": 2,
   "weekStart": "monday"
 }
