@@ -76,3 +76,7 @@ Created Grafana dashboard will be lost when stopping the environment! The Timesc
 In order to stop and clean the docker compose based setup, run `clean.sh`
 
 Created Grafana dashboard will be lost when stopping the environment! The TimescaleDB data is also removed when running clean.
+
+sudo chown -R $USER /grafana
+chmod -R 755 /grafana
+
