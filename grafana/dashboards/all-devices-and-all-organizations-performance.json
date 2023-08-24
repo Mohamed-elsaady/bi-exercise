@@ -1,0 +1,2667 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
+      "description": "The yearly trend of alerts",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#e74536",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "displayName": "Total Alerts",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 16,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": true,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "auto",
+        "showValue": "always",
+        "stacking": "none",
+        "text": {
+          "valueSize": 18
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xField": "year",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P052245A3190431CB"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT DATE_TRUNC('year', time) as year, SUM(kpi_alert_count) as total_alerts\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nGROUP BY year\nORDER BY year;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Yearly Alert Summary for Organization ID ${org_identifier}",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "#257f24",
+                "value": null
+              },
+              {
+                "color": "#ffb511",
+                "value": 40
+              },
+              {
+                "color": "#e74536",
+                "value": 70
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "kpi_type_code"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "RA_CAM_QUALITY": {
+                        "index": 0,
+                        "text": "CAM compliance"
+                      },
+                      "RA_CLOCK_DIFF": {
+                        "index": 1,
+                        "text": "Clock drift"
+                      },
+                      "RA_CONNECTED_PERCENTAGE": {
+                        "index": 2,
+                        "text": "Percentage of time connected (uptime)"
+                      },
+                      "RA_EXCEPTIONAL_CONDITION_PERCENTAGE": {
+                        "index": 3,
+                        "text": "Percentage red with special conditions"
+                      },
+                      "RA_MAP_FREQUENCY": {
+                        "index": 4,
+                        "text": "MAP frequency"
+                      },
+                      "RA_MAP_QUALITY": {
+                        "index": 5,
+                        "text": "MAP compliance"
+                      },
+                      "RA_PREDICTION_CONFIDENCE_PERCENTAGE": {
+                        "index": 6,
+                        "text": "Percentage prediction with high certainty (confidence)"
+                      },
+                      "RA_PREDICTION_LIKELY_DELTA": {
+                        "index": 7,
+                        "text": "Deviation prediction (likely)"
+                      },
+                      "RA_PREDICTION_LIKELY_PERCENTAGE": {
+                        "index": 8,
+                        "text": "Percent Prediction (Likely)"
+                      },
+                      "RA_PREDICTION_WINDOW_PERCENTAGE": {
+                        "index": 26,
+                        "text": "Percent Prediction (min/max)"
+                      },
+                      "RA_PREDICTION_WINDOW_SIZE": {
+                        "index": 27,
+                        "text": "Bandwidth prediction (min/max)"
+                      },
+                      "RA_PRIORITY_ANSWERED_PERCENTAGE": {
+                        "index": 25,
+                        "text": "Percentage of priority request answered"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_DELTA_EMERGENCY": {
+                        "index": 18,
+                        "text": "Deviation ETA granted priority request emergency services"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_DELTA_OTHER": {
+                        "index": 19,
+                        "text": "Deviation ETA assigned priority request other"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_GREEN_DELTA_EMERGENCY": {
+                        "index": 20,
+                        "text": "Time between ETA priority request and actually green emergency services"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_GREEN_DELTA_OTHER": {
+                        "index": 21,
+                        "text": "Tijd tussen ETA prioriteitsverzoek en daadwerkelijk groen overig"
+                      },
+                      "RA_PRIORITY_GRANTED_PERCENTAGE_EMERGENCY": {
+                        "index": 22,
+                        "text": "Percentage of emergency services priority request granted"
+                      },
+                      "RA_PRIORITY_GRANTED_PERCENTAGE_OTHER": {
+                        "index": 23,
+                        "text": "Percentage toegekend prioriteitsverzoek overig"
+                      },
+                      "RA_ROUNDTRIP_LATENCY": {
+                        "index": 24,
+                        "text": "Latency connection (round trip)"
+                      },
+                      "RA_SAT_MISSING_DAYS": {
+                        "index": 9,
+                        "text": "Days in production without iSAT"
+                      },
+                      "RA_SESSION_CREATIONS": {
+                        "index": 10,
+                        "text": "Connection attempts"
+                      },
+                      "RA_SPAT_FREQUENCY": {
+                        "index": 11,
+                        "text": "SPAT frequency"
+                      },
+                      "RA_SPAT_QUALITY": {
+                        "index": 12,
+                        "text": "SPAT compliance"
+                      },
+                      "RA_SRM_QUALITY": {
+                        "index": 14,
+                        "text": "SRM compliance"
+                      },
+                      "RA_SSM_QUALITY": {
+                        "index": 13,
+                        "text": "SSM compliance"
+                      },
+                      "RA_STATION_COUNT": {
+                        "index": 15,
+                        "text": "Traffic intensity"
+                      },
+                      "RA_SUBJECT_STATE": {
+                        "index": 16,
+                        "text": "Object status"
+                      },
+                      "RA_TLCCONF_QUALITY": {
+                        "index": 17,
+                        "text": "TLC Conf conformance"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "id": 20,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": true,
+        "valueMode": "color"
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P052245A3190431CB"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT kpi_type_code, COUNT(*) as occurrences\nFROM kpi_1d\nWHERE kpi_value_last < kpi_alert_condition_lower_limit_last OR kpi_value_last > kpi_alert_condition_upper_limit_last\nAND org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code\nORDER BY occurrences DESC;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "The number of times each KPIs went **Above or Below** the alert threshold for Organization ID ${org_identifier}",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "#257f24",
+                "value": null
+              },
+              {
+                "color": "#ffb511",
+                "value": 30
+              },
+              {
+                "color": "#e74536",
+                "value": 70
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "kpi_type_code"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "RA_CAM_QUALITY": {
+                        "index": 0,
+                        "text": "CAM compliance"
+                      },
+                      "RA_CLOCK_DIFF": {
+                        "index": 1,
+                        "text": "Clock drift"
+                      },
+                      "RA_CONNECTED_PERCENTAGE": {
+                        "index": 2,
+                        "text": "Percentage of time connected (uptime)"
+                      },
+                      "RA_EXCEPTIONAL_CONDITION_PERCENTAGE": {
+                        "index": 3,
+                        "text": "Percentage red with special conditions"
+                      },
+                      "RA_MAP_FREQUENCY": {
+                        "index": 4,
+                        "text": "MAP frequency"
+                      },
+                      "RA_MAP_QUALITY": {
+                        "index": 5,
+                        "text": "MAP compliance"
+                      },
+                      "RA_PREDICTION_CONFIDENCE_PERCENTAGE": {
+                        "index": 6,
+                        "text": "Percentage prediction with high certainty (confidence)"
+                      },
+                      "RA_PREDICTION_LIKELY_DELTA": {
+                        "index": 7,
+                        "text": "Deviation prediction (likely)"
+                      },
+                      "RA_PREDICTION_LIKELY_PERCENTAGE": {
+                        "index": 8,
+                        "text": "Percent Prediction (Likely)"
+                      },
+                      "RA_PREDICTION_WINDOW_PERCENTAGE": {
+                        "index": 26,
+                        "text": "Percent Prediction (min/max)"
+                      },
+                      "RA_PREDICTION_WINDOW_SIZE": {
+                        "index": 27,
+                        "text": "Bandwidth prediction (min/max)"
+                      },
+                      "RA_PRIORITY_ANSWERED_PERCENTAGE": {
+                        "index": 25,
+                        "text": "Percentage of priority request answered"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_DELTA_EMERGENCY": {
+                        "index": 18,
+                        "text": "Deviation ETA granted priority request emergency services"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_DELTA_OTHER": {
+                        "index": 19,
+                        "text": "Deviation ETA assigned priority request other"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_GREEN_DELTA_EMERGENCY": {
+                        "index": 20,
+                        "text": "Time between ETA priority request and actually green emergency services"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_GREEN_DELTA_OTHER": {
+                        "index": 21,
+                        "text": "Tijd tussen ETA prioriteitsverzoek en daadwerkelijk groen overig"
+                      },
+                      "RA_PRIORITY_GRANTED_PERCENTAGE_EMERGENCY": {
+                        "index": 22,
+                        "text": "Percentage of emergency services priority request granted"
+                      },
+                      "RA_PRIORITY_GRANTED_PERCENTAGE_OTHER": {
+                        "index": 23,
+                        "text": "Percentage toegekend prioriteitsverzoek overig"
+                      },
+                      "RA_ROUNDTRIP_LATENCY": {
+                        "index": 24,
+                        "text": "Latency connection (round trip)"
+                      },
+                      "RA_SAT_MISSING_DAYS": {
+                        "index": 9,
+                        "text": "Days in production without iSAT"
+                      },
+                      "RA_SESSION_CREATIONS": {
+                        "index": 10,
+                        "text": "Connection attempts"
+                      },
+                      "RA_SPAT_FREQUENCY": {
+                        "index": 11,
+                        "text": "SPAT frequency"
+                      },
+                      "RA_SPAT_QUALITY": {
+                        "index": 12,
+                        "text": "SPAT compliance"
+                      },
+                      "RA_SRM_QUALITY": {
+                        "index": 14,
+                        "text": "SRM compliance"
+                      },
+                      "RA_SSM_QUALITY": {
+                        "index": 13,
+                        "text": "SSM compliance"
+                      },
+                      "RA_STATION_COUNT": {
+                        "index": 15,
+                        "text": "Traffic intensity"
+                      },
+                      "RA_SUBJECT_STATE": {
+                        "index": 16,
+                        "text": "Object status"
+                      },
+                      "RA_TLCCONF_QUALITY": {
+                        "index": 17,
+                        "text": "TLC Conf conformance"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 21
+      },
+      "id": 21,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": true,
+        "text": {
+          "titleSize": 12
+        },
+        "valueMode": "color"
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P052245A3190431CB"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT kpi_type_code, COUNT(*) as occurrences\nFROM kpi_1d\nWHERE kpi_value_last > kpi_alert_condition_upper_limit_last \nAND org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code\nORDER BY occurrences DESC;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "The number of times each KPIs went **Above** the alert threshold for Organization ID ${org_identifier}",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "#257f24",
+                "value": null
+              },
+              {
+                "color": "#ffb511",
+                "value": 30
+              },
+              {
+                "color": "#e74536",
+                "value": 70
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "kpi_type_code"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "RA_CAM_QUALITY": {
+                        "index": 0,
+                        "text": "CAM compliance"
+                      },
+                      "RA_CLOCK_DIFF": {
+                        "index": 1,
+                        "text": "Clock drift"
+                      },
+                      "RA_CONNECTED_PERCENTAGE": {
+                        "index": 2,
+                        "text": "Percentage of time connected (uptime)"
+                      },
+                      "RA_EXCEPTIONAL_CONDITION_PERCENTAGE": {
+                        "index": 3,
+                        "text": "Percentage red with special conditions"
+                      },
+                      "RA_MAP_FREQUENCY": {
+                        "index": 4,
+                        "text": "MAP frequency"
+                      },
+                      "RA_MAP_QUALITY": {
+                        "index": 5,
+                        "text": "MAP compliance"
+                      },
+                      "RA_PREDICTION_CONFIDENCE_PERCENTAGE": {
+                        "index": 6,
+                        "text": "Percentage prediction with high certainty (confidence)"
+                      },
+                      "RA_PREDICTION_LIKELY_DELTA": {
+                        "index": 7,
+                        "text": "Deviation prediction (likely)"
+                      },
+                      "RA_PREDICTION_LIKELY_PERCENTAGE": {
+                        "index": 8,
+                        "text": "Percent Prediction (Likely)"
+                      },
+                      "RA_PREDICTION_WINDOW_PERCENTAGE": {
+                        "index": 26,
+                        "text": "Percent Prediction (min/max)"
+                      },
+                      "RA_PREDICTION_WINDOW_SIZE": {
+                        "index": 27,
+                        "text": "Bandwidth prediction (min/max)"
+                      },
+                      "RA_PRIORITY_ANSWERED_PERCENTAGE": {
+                        "index": 25,
+                        "text": "Percentage of priority request answered"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_DELTA_EMERGENCY": {
+                        "index": 18,
+                        "text": "Deviation ETA granted priority request emergency services"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_DELTA_OTHER": {
+                        "index": 19,
+                        "text": "Deviation ETA assigned priority request other"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_GREEN_DELTA_EMERGENCY": {
+                        "index": 20,
+                        "text": "Time between ETA priority request and actually green emergency services"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_GREEN_DELTA_OTHER": {
+                        "index": 21,
+                        "text": "Tijd tussen ETA prioriteitsverzoek en daadwerkelijk groen overig"
+                      },
+                      "RA_PRIORITY_GRANTED_PERCENTAGE_EMERGENCY": {
+                        "index": 22,
+                        "text": "Percentage of emergency services priority request granted"
+                      },
+                      "RA_PRIORITY_GRANTED_PERCENTAGE_OTHER": {
+                        "index": 23,
+                        "text": "Percentage toegekend prioriteitsverzoek overig"
+                      },
+                      "RA_ROUNDTRIP_LATENCY": {
+                        "index": 24,
+                        "text": "Latency connection (round trip)"
+                      },
+                      "RA_SAT_MISSING_DAYS": {
+                        "index": 9,
+                        "text": "Days in production without iSAT"
+                      },
+                      "RA_SESSION_CREATIONS": {
+                        "index": 10,
+                        "text": "Connection attempts"
+                      },
+                      "RA_SPAT_FREQUENCY": {
+                        "index": 11,
+                        "text": "SPAT frequency"
+                      },
+                      "RA_SPAT_QUALITY": {
+                        "index": 12,
+                        "text": "SPAT compliance"
+                      },
+                      "RA_SRM_QUALITY": {
+                        "index": 14,
+                        "text": "SRM compliance"
+                      },
+                      "RA_SSM_QUALITY": {
+                        "index": 13,
+                        "text": "SSM compliance"
+                      },
+                      "RA_STATION_COUNT": {
+                        "index": 15,
+                        "text": "Traffic intensity"
+                      },
+                      "RA_SUBJECT_STATE": {
+                        "index": 16,
+                        "text": "Object status"
+                      },
+                      "RA_TLCCONF_QUALITY": {
+                        "index": 17,
+                        "text": "TLC Conf conformance"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 21
+      },
+      "id": 22,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": true,
+        "text": {
+          "titleSize": 12
+        },
+        "valueMode": "color"
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P052245A3190431CB"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT kpi_type_code, COUNT(*) as occurrences\nFROM kpi_1d\nWHERE kpi_value_last < kpi_alert_condition_lower_limit_last\nAND org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code\nORDER BY occurrences DESC;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "The number of times each KPIs went **Below** the alert threshold for Organization ID ${org_identifier}",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
+      "description": " To identify which KPIs frequently trigger alerts",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#0f1941",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 100,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "displayName": "Total Alerts",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "kpi_type_code"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "RA_CAM_QUALITY": {
+                        "index": 0,
+                        "text": "CAM compliance"
+                      },
+                      "RA_CLOCK_DIFF": {
+                        "index": 1,
+                        "text": "Clock drift"
+                      },
+                      "RA_CONNECTED_PERCENTAGE": {
+                        "index": 2,
+                        "text": "Percentage of time connected (uptime)"
+                      },
+                      "RA_EXCEPTIONAL_CONDITION_PERCENTAGE": {
+                        "index": 3,
+                        "text": "Percentage red with special conditions"
+                      },
+                      "RA_MAP_FREQUENCY": {
+                        "index": 4,
+                        "text": "MAP frequency"
+                      },
+                      "RA_MAP_QUALITY": {
+                        "index": 5,
+                        "text": "MAP compliance"
+                      },
+                      "RA_PREDICTION_CONFIDENCE_PERCENTAGE": {
+                        "index": 6,
+                        "text": "Percentage prediction with high certainty (confidence)"
+                      },
+                      "RA_PREDICTION_LIKELY_DELTA": {
+                        "index": 7,
+                        "text": "Deviation prediction (likely)"
+                      },
+                      "RA_PREDICTION_LIKELY_PERCENTAGE": {
+                        "index": 8,
+                        "text": "Percent Prediction (Likely)"
+                      },
+                      "RA_PREDICTION_WINDOW_PERCENTAGE": {
+                        "index": 26,
+                        "text": "Percent Prediction (min/max)"
+                      },
+                      "RA_PREDICTION_WINDOW_SIZE": {
+                        "index": 27,
+                        "text": "Bandwidth prediction (min/max)"
+                      },
+                      "RA_PRIORITY_ANSWERED_PERCENTAGE": {
+                        "index": 25,
+                        "text": "Percentage of priority request answered"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_DELTA_EMERGENCY": {
+                        "index": 18,
+                        "text": "Deviation ETA granted priority request emergency services"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_DELTA_OTHER": {
+                        "index": 19,
+                        "text": "Deviation ETA assigned priority request other"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_GREEN_DELTA_EMERGENCY": {
+                        "index": 20,
+                        "text": "Time between ETA priority request and actually green emergency services"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_GREEN_DELTA_OTHER": {
+                        "index": 21,
+                        "text": "Tijd tussen ETA prioriteitsverzoek en daadwerkelijk groen overig"
+                      },
+                      "RA_PRIORITY_GRANTED_PERCENTAGE_EMERGENCY": {
+                        "index": 22,
+                        "text": "Percentage of emergency services priority request granted"
+                      },
+                      "RA_PRIORITY_GRANTED_PERCENTAGE_OTHER": {
+                        "index": 23,
+                        "text": "Percentage toegekend prioriteitsverzoek overig"
+                      },
+                      "RA_ROUNDTRIP_LATENCY": {
+                        "index": 24,
+                        "text": "Latency connection (round trip)"
+                      },
+                      "RA_SAT_MISSING_DAYS": {
+                        "index": 9,
+                        "text": "Days in production without iSAT"
+                      },
+                      "RA_SESSION_CREATIONS": {
+                        "index": 10,
+                        "text": "Connection attempts"
+                      },
+                      "RA_SPAT_FREQUENCY": {
+                        "index": 11,
+                        "text": "SPAT frequency"
+                      },
+                      "RA_SPAT_QUALITY": {
+                        "index": 12,
+                        "text": "SPAT compliance"
+                      },
+                      "RA_SRM_QUALITY": {
+                        "index": 14,
+                        "text": "SRM compliance"
+                      },
+                      "RA_SSM_QUALITY": {
+                        "index": 13,
+                        "text": "SSM compliance"
+                      },
+                      "RA_STATION_COUNT": {
+                        "index": 15,
+                        "text": "Traffic intensity"
+                      },
+                      "RA_SUBJECT_STATE": {
+                        "index": 16,
+                        "text": "Object status"
+                      },
+                      "RA_TLCCONF_QUALITY": {
+                        "index": 17,
+                        "text": "TLC Conf conformance"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 29
+      },
+      "id": 14,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.87,
+        "fullHighlight": true,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "horizontal",
+        "showValue": "always",
+        "stacking": "none",
+        "text": {
+          "valueSize": 10
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 100
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P052245A3190431CB"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT kpi_type_code, SUM(kpi_alert_count) as total_alerts\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code\nORDER BY total_alerts DESC\nLIMIT 10; -- Top 5 KPIs",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Top Number of KPIs with Most Alerts for Organization ID ${org_identifier} ",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#ffab11",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "left",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "kpi_type_code"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "RA_CAM_QUALITY": {
+                        "index": 0,
+                        "text": "CAM compliance"
+                      },
+                      "RA_CLOCK_DIFF": {
+                        "index": 1,
+                        "text": "Clock drift"
+                      },
+                      "RA_CONNECTED_PERCENTAGE": {
+                        "index": 2,
+                        "text": "Percentage of time connected (uptime)"
+                      },
+                      "RA_EXCEPTIONAL_CONDITION_PERCENTAGE": {
+                        "index": 3,
+                        "text": "Percentage red with special conditions"
+                      },
+                      "RA_MAP_FREQUENCY": {
+                        "index": 4,
+                        "text": "MAP frequency"
+                      },
+                      "RA_MAP_QUALITY": {
+                        "index": 5,
+                        "text": "MAP compliance"
+                      },
+                      "RA_PREDICTION_CONFIDENCE_PERCENTAGE": {
+                        "index": 6,
+                        "text": "Percentage prediction with high certainty (confidence)"
+                      },
+                      "RA_PREDICTION_LIKELY_DELTA": {
+                        "index": 7,
+                        "text": "Deviation prediction (likely)"
+                      },
+                      "RA_PREDICTION_LIKELY_PERCENTAGE": {
+                        "index": 8,
+                        "text": "Percent Prediction (Likely)"
+                      },
+                      "RA_PREDICTION_WINDOW_PERCENTAGE": {
+                        "index": 26,
+                        "text": "Percent Prediction (min/max)"
+                      },
+                      "RA_PREDICTION_WINDOW_SIZE": {
+                        "index": 27,
+                        "text": "Bandwidth prediction (min/max)"
+                      },
+                      "RA_PRIORITY_ANSWERED_PERCENTAGE": {
+                        "index": 25,
+                        "text": "Percentage of priority request answered"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_DELTA_EMERGENCY": {
+                        "index": 18,
+                        "text": "Deviation ETA granted priority request emergency services"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_DELTA_OTHER": {
+                        "index": 19,
+                        "text": "Deviation ETA assigned priority request other"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_GREEN_DELTA_EMERGENCY": {
+                        "index": 20,
+                        "text": "Time between ETA priority request and actually green emergency services"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_GREEN_DELTA_OTHER": {
+                        "index": 21,
+                        "text": "Tijd tussen ETA prioriteitsverzoek en daadwerkelijk groen overig"
+                      },
+                      "RA_PRIORITY_GRANTED_PERCENTAGE_EMERGENCY": {
+                        "index": 22,
+                        "text": "Percentage of emergency services priority request granted"
+                      },
+                      "RA_PRIORITY_GRANTED_PERCENTAGE_OTHER": {
+                        "index": 23,
+                        "text": "Percentage toegekend prioriteitsverzoek overig"
+                      },
+                      "RA_ROUNDTRIP_LATENCY": {
+                        "index": 24,
+                        "text": "Latency connection (round trip)"
+                      },
+                      "RA_SAT_MISSING_DAYS": {
+                        "index": 9,
+                        "text": "Days in production without iSAT"
+                      },
+                      "RA_SESSION_CREATIONS": {
+                        "index": 10,
+                        "text": "Connection attempts"
+                      },
+                      "RA_SPAT_FREQUENCY": {
+                        "index": 11,
+                        "text": "SPAT frequency"
+                      },
+                      "RA_SPAT_QUALITY": {
+                        "index": 12,
+                        "text": "SPAT compliance"
+                      },
+                      "RA_SRM_QUALITY": {
+                        "index": 14,
+                        "text": "SRM compliance"
+                      },
+                      "RA_SSM_QUALITY": {
+                        "index": 13,
+                        "text": "SSM compliance"
+                      },
+                      "RA_STATION_COUNT": {
+                        "index": 15,
+                        "text": "Traffic intensity"
+                      },
+                      "RA_SUBJECT_STATE": {
+                        "index": 16,
+                        "text": "Object status"
+                      },
+                      "RA_TLCCONF_QUALITY": {
+                        "index": 17,
+                        "text": "TLC Conf conformance"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 24,
+        "x": 0,
+        "y": 43
+      },
+      "id": 12,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.49,
+        "fullHighlight": true,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": false
+        },
+        "orientation": "horizontal",
+        "showValue": "always",
+        "stacking": "none",
+        "text": {
+          "valueSize": 12
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "asc"
+        },
+        "xField": "kpi_type_code",
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P052245A3190431CB"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT kpi_type_code, SUM(kpi_alert_count) as total_alerts\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "The number of KPI samples that met the alert condition for each KPI type for Organization ID ${org_identifier}",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
+      "description": "Display the average KPI value over time for a specific device.\n\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#257f24",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "displayName": "Average KPI value",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 59
+      },
+      "id": 10,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "count",
+            "sum",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "none",
+          "sort": "asc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P052245A3190431CB"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "SELECT time,  kpi_value_avg\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month';",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Average KPI value over time for Organization ID ${org_identifier}",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
+      "description": "Display the alert count value over time for a specific device.\n\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#257f24",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "displayName": "Average alert count",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 68
+      },
+      "id": 19,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "count",
+            "sum",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P052245A3190431CB"
+          },
+          "editorMode": "code",
+          "format": "time_series",
+          "rawQuery": true,
+          "rawSql": "SELECT \n    time,\n    AVG(kpi_alert_count) AS avg_alerts\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY time\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Average alert count over time for Organization ID ${org_identifier}",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 77
+      },
+      "id": 11,
+      "options": {
+        "calculate": false,
+        "calculation": {
+          "xBuckets": {
+            "mode": "count"
+          },
+          "yBuckets": {
+            "mode": "count"
+          }
+        },
+        "cellGap": 1,
+        "color": {
+          "exponent": 0.5,
+          "fill": "dark-orange",
+          "mode": "scheme",
+          "reverse": false,
+          "scale": "exponential",
+          "scheme": "Blues",
+          "steps": 64
+        },
+        "exemplars": {
+          "color": "rgba(255,0,255,0.7)"
+        },
+        "filterValues": {
+          "le": 1e-9
+        },
+        "legend": {
+          "show": true
+        },
+        "rowsFrame": {
+          "layout": "auto",
+          "value": "Average"
+        },
+        "tooltip": {
+          "show": true,
+          "yHistogram": false
+        },
+        "yAxis": {
+          "axisPlacement": "hidden",
+          "reverse": false
+        }
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P052245A3190431CB"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \n    date_trunc('month', time) AS month, \n    AVG(kpi_alert_count) AS avg_alerts\n  FROM kpi_1d\nWHERE org_identifier = ${org_identifier}\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY \n    date_trunc('month', time)\nORDER BY \n    month;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "The density or intensity of average alerts count over time for Organization ID ${org_identifier}",
+      "type": "heatmap"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#257f24",
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 85
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 77
+      },
+      "id": 9,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P052245A3190431CB"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT SUM(kpi_alert_count) as total_alerts\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month';",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "KPI Alert Count for Organization ID ${org_identifier}",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 85
+      },
+      "id": 8,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "values": []
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P052245A3190431CB"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT kpi_alert_condition_type_last, COUNT(*) as count\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_alert_condition_type_last;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "The distribution of different alert conditions for Organization ID ${org_identifier}",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
+      "description": "KPIs close to their alert thresholds but haven't triggered an alert yet.\n",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#257f24",
+                "value": null
+              },
+              {
+                "color": "#e74536",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "kpi_type_code"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "RA_CAM_QUALITY": {
+                        "index": 0,
+                        "text": "CAM compliance"
+                      },
+                      "RA_CLOCK_DIFF": {
+                        "index": 1,
+                        "text": "Clock drift"
+                      },
+                      "RA_CONNECTED_PERCENTAGE": {
+                        "index": 2,
+                        "text": "Percentage of time connected (uptime)"
+                      },
+                      "RA_EXCEPTIONAL_CONDITION_PERCENTAGE": {
+                        "index": 3,
+                        "text": "Percentage red with special conditions"
+                      },
+                      "RA_MAP_FREQUENCY": {
+                        "index": 4,
+                        "text": "MAP frequency"
+                      },
+                      "RA_MAP_QUALITY": {
+                        "index": 5,
+                        "text": "MAP compliance"
+                      },
+                      "RA_PREDICTION_CONFIDENCE_PERCENTAGE": {
+                        "index": 6,
+                        "text": "Percentage prediction with high certainty (confidence)"
+                      },
+                      "RA_PREDICTION_LIKELY_DELTA": {
+                        "index": 7,
+                        "text": "Deviation prediction (likely)"
+                      },
+                      "RA_PREDICTION_LIKELY_PERCENTAGE": {
+                        "index": 8,
+                        "text": "Percent Prediction (Likely)"
+                      },
+                      "RA_PREDICTION_WINDOW_PERCENTAGE": {
+                        "index": 26,
+                        "text": "Percent Prediction (min/max)"
+                      },
+                      "RA_PREDICTION_WINDOW_SIZE": {
+                        "index": 27,
+                        "text": "Bandwidth prediction (min/max)"
+                      },
+                      "RA_PRIORITY_ANSWERED_PERCENTAGE": {
+                        "index": 25,
+                        "text": "Percentage of priority request answered"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_DELTA_EMERGENCY": {
+                        "index": 18,
+                        "text": "Deviation ETA granted priority request emergency services"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_DELTA_OTHER": {
+                        "index": 19,
+                        "text": "Deviation ETA assigned priority request other"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_GREEN_DELTA_EMERGENCY": {
+                        "index": 20,
+                        "text": "Time between ETA priority request and actually green emergency services"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_GREEN_DELTA_OTHER": {
+                        "index": 21,
+                        "text": "Tijd tussen ETA prioriteitsverzoek en daadwerkelijk groen overig"
+                      },
+                      "RA_PRIORITY_GRANTED_PERCENTAGE_EMERGENCY": {
+                        "index": 22,
+                        "text": "Percentage of emergency services priority request granted"
+                      },
+                      "RA_PRIORITY_GRANTED_PERCENTAGE_OTHER": {
+                        "index": 23,
+                        "text": "Percentage toegekend prioriteitsverzoek overig"
+                      },
+                      "RA_ROUNDTRIP_LATENCY": {
+                        "index": 24,
+                        "text": "Latency connection (round trip)"
+                      },
+                      "RA_SAT_MISSING_DAYS": {
+                        "index": 9,
+                        "text": "Days in production without iSAT"
+                      },
+                      "RA_SESSION_CREATIONS": {
+                        "index": 10,
+                        "text": "Connection attempts"
+                      },
+                      "RA_SPAT_FREQUENCY": {
+                        "index": 11,
+                        "text": "SPAT frequency"
+                      },
+                      "RA_SPAT_QUALITY": {
+                        "index": 12,
+                        "text": "SPAT compliance"
+                      },
+                      "RA_SRM_QUALITY": {
+                        "index": 14,
+                        "text": "SRM compliance"
+                      },
+                      "RA_SSM_QUALITY": {
+                        "index": 13,
+                        "text": "SSM compliance"
+                      },
+                      "RA_STATION_COUNT": {
+                        "index": 15,
+                        "text": "Traffic intensity"
+                      },
+                      "RA_SUBJECT_STATE": {
+                        "index": 16,
+                        "text": "Object status"
+                      },
+                      "RA_TLCCONF_QUALITY": {
+                        "index": 17,
+                        "text": "TLC Conf conformance"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 92
+      },
+      "id": 5,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": true
+        },
+        "showUnfilled": true,
+        "text": {},
+        "valueMode": "color"
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P052245A3190431CB"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT time, kpi_type_code, kpi_value_last, kpi_alert_condition_lower_limit_last, kpi_alert_condition_upper_limit_last\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nAND kpi_alert_count = 0\nAND (kpi_value_last < kpi_alert_condition_lower_limit_last + 10 OR kpi_value_last > kpi_alert_condition_upper_limit_last - 10);\n\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "KPIs Close to Alert Thresholds for Organization ID ${org_identifier}",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "#ffb511",
+            "mode": "fixed"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "displayName": "Monthly Average of KPIs",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "kpi_type_code"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "RA_CAM_QUALITY": {
+                        "index": 0,
+                        "text": "CAM compliance"
+                      },
+                      "RA_CLOCK_DIFF": {
+                        "index": 1,
+                        "text": "Clock drift"
+                      },
+                      "RA_CONNECTED_PERCENTAGE": {
+                        "index": 2,
+                        "text": "Percentage of time connected (uptime)"
+                      },
+                      "RA_EXCEPTIONAL_CONDITION_PERCENTAGE": {
+                        "index": 3,
+                        "text": "Percentage red with special conditions"
+                      },
+                      "RA_MAP_FREQUENCY": {
+                        "index": 4,
+                        "text": "MAP frequency"
+                      },
+                      "RA_MAP_QUALITY": {
+                        "index": 5,
+                        "text": "MAP compliance"
+                      },
+                      "RA_PREDICTION_CONFIDENCE_PERCENTAGE": {
+                        "index": 6,
+                        "text": "Percentage prediction with high certainty (confidence)"
+                      },
+                      "RA_PREDICTION_LIKELY_DELTA": {
+                        "index": 7,
+                        "text": "Deviation prediction (likely)"
+                      },
+                      "RA_PREDICTION_LIKELY_PERCENTAGE": {
+                        "index": 8,
+                        "text": "Percent Prediction (Likely)"
+                      },
+                      "RA_PREDICTION_WINDOW_PERCENTAGE": {
+                        "index": 26,
+                        "text": "Percent Prediction (min/max)"
+                      },
+                      "RA_PREDICTION_WINDOW_SIZE": {
+                        "index": 27,
+                        "text": "Bandwidth prediction (min/max)"
+                      },
+                      "RA_PRIORITY_ANSWERED_PERCENTAGE": {
+                        "index": 25,
+                        "text": "Percentage of priority request answered"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_DELTA_EMERGENCY": {
+                        "index": 18,
+                        "text": "Deviation ETA granted priority request emergency services"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_DELTA_OTHER": {
+                        "index": 19,
+                        "text": "Deviation ETA assigned priority request other"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_GREEN_DELTA_EMERGENCY": {
+                        "index": 20,
+                        "text": "Time between ETA priority request and actually green emergency services"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_GREEN_DELTA_OTHER": {
+                        "index": 21,
+                        "text": "Tijd tussen ETA prioriteitsverzoek en daadwerkelijk groen overig"
+                      },
+                      "RA_PRIORITY_GRANTED_PERCENTAGE_EMERGENCY": {
+                        "index": 22,
+                        "text": "Percentage of emergency services priority request granted"
+                      },
+                      "RA_PRIORITY_GRANTED_PERCENTAGE_OTHER": {
+                        "index": 23,
+                        "text": "Percentage toegekend prioriteitsverzoek overig"
+                      },
+                      "RA_ROUNDTRIP_LATENCY": {
+                        "index": 24,
+                        "text": "Latency connection (round trip)"
+                      },
+                      "RA_SAT_MISSING_DAYS": {
+                        "index": 9,
+                        "text": "Days in production without iSAT"
+                      },
+                      "RA_SESSION_CREATIONS": {
+                        "index": 10,
+                        "text": "Connection attempts"
+                      },
+                      "RA_SPAT_FREQUENCY": {
+                        "index": 11,
+                        "text": "SPAT frequency"
+                      },
+                      "RA_SPAT_QUALITY": {
+                        "index": 12,
+                        "text": "SPAT compliance"
+                      },
+                      "RA_SRM_QUALITY": {
+                        "index": 14,
+                        "text": "SRM compliance"
+                      },
+                      "RA_SSM_QUALITY": {
+                        "index": 13,
+                        "text": "SSM compliance"
+                      },
+                      "RA_STATION_COUNT": {
+                        "index": 15,
+                        "text": "Traffic intensity"
+                      },
+                      "RA_SUBJECT_STATE": {
+                        "index": 16,
+                        "text": "Object status"
+                      },
+                      "RA_TLCCONF_QUALITY": {
+                        "index": 17,
+                        "text": "TLC Conf conformance"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 74,
+        "w": 24,
+        "x": 0,
+        "y": 106
+      },
+      "id": 17,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": true,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [
+            "sum",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "orientation": "horizontal",
+        "showValue": "always",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 100
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P052245A3190431CB"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT DATE_TRUNC('month', time) as month, kpi_type_code, AVG(kpi_value_avg) as monthly_avg\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nGROUP BY month, kpi_type_code\nORDER BY month, kpi_type_code;",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "All time Monthly Average of KPIs for Organization ID ${org_identifier}",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "kpi_type_code"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "RA_CAM_QUALITY": {
+                        "index": 0,
+                        "text": "CAM compliance"
+                      },
+                      "RA_CLOCK_DIFF": {
+                        "index": 1,
+                        "text": "Clock drift"
+                      },
+                      "RA_CONNECTED_PERCENTAGE": {
+                        "index": 2,
+                        "text": "Percentage of time connected (uptime)"
+                      },
+                      "RA_EXCEPTIONAL_CONDITION_PERCENTAGE": {
+                        "index": 3,
+                        "text": "Percentage red with special conditions"
+                      },
+                      "RA_MAP_FREQUENCY": {
+                        "index": 4,
+                        "text": "MAP frequency"
+                      },
+                      "RA_MAP_QUALITY": {
+                        "index": 5,
+                        "text": "MAP compliance"
+                      },
+                      "RA_PREDICTION_CONFIDENCE_PERCENTAGE": {
+                        "index": 6,
+                        "text": "Percentage prediction with high certainty (confidence)"
+                      },
+                      "RA_PREDICTION_LIKELY_DELTA": {
+                        "index": 7,
+                        "text": "Deviation prediction (likely)"
+                      },
+                      "RA_PREDICTION_LIKELY_PERCENTAGE": {
+                        "index": 8,
+                        "text": "Percent Prediction (Likely)"
+                      },
+                      "RA_PREDICTION_WINDOW_PERCENTAGE": {
+                        "index": 26,
+                        "text": "Percent Prediction (min/max)"
+                      },
+                      "RA_PREDICTION_WINDOW_SIZE": {
+                        "index": 27,
+                        "text": "Bandwidth prediction (min/max)"
+                      },
+                      "RA_PRIORITY_ANSWERED_PERCENTAGE": {
+                        "index": 25,
+                        "text": "Percentage of priority request answered"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_DELTA_EMERGENCY": {
+                        "index": 18,
+                        "text": "Deviation ETA granted priority request emergency services"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_DELTA_OTHER": {
+                        "index": 19,
+                        "text": "Deviation ETA assigned priority request other"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_GREEN_DELTA_EMERGENCY": {
+                        "index": 20,
+                        "text": "Time between ETA priority request and actually green emergency services"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_GREEN_DELTA_OTHER": {
+                        "index": 21,
+                        "text": "Tijd tussen ETA prioriteitsverzoek en daadwerkelijk groen overig"
+                      },
+                      "RA_PRIORITY_GRANTED_PERCENTAGE_EMERGENCY": {
+                        "index": 22,
+                        "text": "Percentage of emergency services priority request granted"
+                      },
+                      "RA_PRIORITY_GRANTED_PERCENTAGE_OTHER": {
+                        "index": 23,
+                        "text": "Percentage toegekend prioriteitsverzoek overig"
+                      },
+                      "RA_ROUNDTRIP_LATENCY": {
+                        "index": 24,
+                        "text": "Latency connection (round trip)"
+                      },
+                      "RA_SAT_MISSING_DAYS": {
+                        "index": 9,
+                        "text": "Days in production without iSAT"
+                      },
+                      "RA_SESSION_CREATIONS": {
+                        "index": 10,
+                        "text": "Connection attempts"
+                      },
+                      "RA_SPAT_FREQUENCY": {
+                        "index": 11,
+                        "text": "SPAT frequency"
+                      },
+                      "RA_SPAT_QUALITY": {
+                        "index": 12,
+                        "text": "SPAT compliance"
+                      },
+                      "RA_SRM_QUALITY": {
+                        "index": 14,
+                        "text": "SRM compliance"
+                      },
+                      "RA_SSM_QUALITY": {
+                        "index": 13,
+                        "text": "SSM compliance"
+                      },
+                      "RA_STATION_COUNT": {
+                        "index": 15,
+                        "text": "Traffic intensity"
+                      },
+                      "RA_SUBJECT_STATE": {
+                        "index": 16,
+                        "text": "Object status"
+                      },
+                      "RA_TLCCONF_QUALITY": {
+                        "index": 17,
+                        "text": "TLC Conf conformance"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 180
+      },
+      "id": 1,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P052245A3190431CB"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT * FROM kpi_1d \nWHERE org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month';\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          },
+          "table": "kpi_1d"
+        }
+      ],
+      "title": "All data for Organization ID ${org_identifier}",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 189
+      },
+      "id": 3,
+      "options": {
+        "folderId": 0,
+        "maxItems": 10,
+        "query": "",
+        "showHeadings": false,
+        "showRecentlyViewed": false,
+        "showSearch": true,
+        "showStarred": false,
+        "tags": []
+      },
+      "pluginVersion": "9.5.2",
+      "title": "Dashboards",
+      "type": "dashlist"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 193
+      },
+      "id": 18,
+      "options": {
+        "activeTheme": "Monotch",
+        "disableThemePicker": true,
+        "themes": [
+          {
+            "name": "Monotch",
+            "styles": [
+              {
+                "props": {
+                  "theme": "light"
+                },
+                "type": "basetheme"
+              },
+              {
+                "props": {
+                  "url": ""
+                },
+                "type": "bgimage"
+              },
+              {
+                "props": {
+                  "url": ""
+                },
+                "type": "url"
+              },
+              {
+                "props": {
+                  "text": ".gf-form-label--variable {\n    color: #e74536 !Important;\n}\n.grafana-app {\n    background: #f7f5f0 !important;\n}\n\n.css-60onds {\n    padding-top: 130px !Important;\n}\n\n.css-15okvyg {\n    height: 80px !Important;\n}\n.css-1m01c8l {\n    width: 131px !Important;\n    height: 71px !Important;\n}\n\nh6 {\n    color: #03050d !important;\n    font-size: 1.1rem;\n    -webkit-font-smoothing: antialiased;\n}\n"
+                },
+                "type": "style"
+              },
+              {
+                "props": {
+                  "color": "f7f5f0"
+                },
+                "type": "panel-container-bg-color"
+              }
+            ]
+          }
+        ]
+      },
+      "pluginVersion": "0.2.1",
+      "type": "yesoreyeram-boomtheme-panel"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "93003",
+          "value": "93003"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "P052245A3190431CB"
+        },
+        "definition": "SELECT DISTINCT org_identifier FROM kpi_1d ORDER BY org_identifier;\n",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Organization Identifier",
+        "multi": false,
+        "name": "org_identifier",
+        "options": [],
+        "query": "SELECT DISTINCT org_identifier FROM kpi_1d ORDER BY org_identifier;\n",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "2022-11",
+          "value": "2022-11"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "P052245A3190431CB"
+        },
+        "definition": "SELECT DISTINCT to_char(time, 'YYYY-MM') as month_year\nFROM kpi_1d\nORDER BY month_year;\n",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Start Date",
+        "multi": false,
+        "name": "start_date",
+        "options": [],
+        "query": "SELECT DISTINCT to_char(time, 'YYYY-MM') as month_year\nFROM kpi_1d\nORDER BY month_year;\n",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "2023-05",
+          "value": "2023-05"
+        },
+        "datasource": {
+          "type": "postgres",
+          "uid": "P052245A3190431CB"
+        },
+        "definition": "SELECT DISTINCT to_char(time, 'YYYY-MM') as month_year\nFROM kpi_1d\nORDER BY month_year;\n",
+        "hide": 0,
+        "includeAll": false,
+        "label": "End Date",
+        "multi": false,
+        "name": "end_date",
+        "options": [],
+        "query": "SELECT DISTINCT to_char(time, 'YYYY-MM') as month_year\nFROM kpi_1d\nORDER BY month_year;\n",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "2022-11-01T00:00:00.000Z",
+    "to": "2023-05-01T00:00:00.000Z"
+  },
+  "timepicker": {
+    "hidden": true
+  },
+  "timezone": "Europe/Amsterdam",
+  "title": "All Devices and Organizations Performance",
+  "uid": "f1a783f2-b3c4-4e7a-8c3d-5f2d7c1e6b7f",
+  "version": 1,
+  "weekStart": "monday"
+}
