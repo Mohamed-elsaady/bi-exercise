@@ -744,119 +744,6 @@
         "type": "postgres",
         "uid": "P052245A3190431CB"
       },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "left",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "filterable": true,
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 11,
-        "w": 24,
-        "x": 0,
-        "y": 39
-      },
-      "id": 23,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "enablePagination": true,
-          "fields": [
-            "kpi_alert_count"
-          ],
-          "reducer": [
-            "sum"
-          ],
-          "show": true
-        },
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": true,
-            "displayName": "kpi_alert_count"
-          }
-        ]
-      },
-      "pluginVersion": "9.5.2",
-      "targets": [
-        {
-          "datasource": {
-            "type": "postgres",
-            "uid": "P052245A3190431CB"
-          },
-          "editorMode": "code",
-          "format": "table",
-          "rawQuery": true,
-          "rawSql": "SELECT device_identifier, SUM(kpi_alert_count) AS kpi_alert_count\nFROM kpi_1d\nWHERE time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY device_identifier\nORDER BY kpi_alert_count DESC;",
-          "refId": "A",
-          "sql": {
-            "columns": [
-              {
-                "parameters": [
-                  {
-                    "name": "device_identifier",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              },
-              {
-                "name": "SUM",
-                "parameters": [
-                  {
-                    "name": "kpi_alert_count",
-                    "type": "functionParameter"
-                  }
-                ],
-                "type": "function"
-              }
-            ],
-            "groupBy": [
-              {
-                "property": {
-                  "name": "device_identifier",
-                  "type": "string"
-                },
-                "type": "groupBy"
-              }
-            ],
-            "limit": 50
-          },
-          "table": "kpi_1d"
-        }
-      ],
-      "title": "Total Number of KPI Alerts per Device",
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "postgres",
-        "uid": "P052245A3190431CB"
-      },
       "description": "The yearly trend of alerts",
       "fieldConfig": {
         "defaults": {
@@ -891,7 +778,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -907,7 +795,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 50
+        "y": 39
       },
       "id": 16,
       "options": {
@@ -983,7 +871,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "#257f24"
+                "color": "#257f24",
+                "value": null
               },
               {
                 "color": "#ffb511",
@@ -1133,7 +1022,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 61
+        "y": 50
       },
       "id": 20,
       "options": {
@@ -1348,7 +1237,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 71
+        "y": 60
       },
       "id": 21,
       "options": {
@@ -1566,7 +1455,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 80
+        "y": 69
       },
       "id": 22,
       "options": {
@@ -1804,7 +1693,7 @@
         "h": 14,
         "w": 24,
         "x": 0,
-        "y": 89
+        "y": 78
       },
       "id": 14,
       "options": {
@@ -2049,7 +1938,7 @@
         "h": 16,
         "w": 24,
         "x": 0,
-        "y": 103
+        "y": 92
       },
       "id": 12,
       "options": {
@@ -2177,7 +2066,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 119
+        "y": 108
       },
       "id": 10,
       "options": {
@@ -2297,7 +2186,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 128
+        "y": 117
       },
       "id": 19,
       "options": {
@@ -2376,7 +2265,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 137
+        "y": 126
       },
       "id": 11,
       "options": {
@@ -2491,7 +2380,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 137
+        "y": 126
       },
       "id": 9,
       "options": {
@@ -2705,7 +2594,7 @@
         "h": 14,
         "w": 24,
         "x": 0,
-        "y": 145
+        "y": 134
       },
       "id": 5,
       "options": {
@@ -2942,7 +2831,7 @@
         "h": 74,
         "w": 24,
         "x": 0,
-        "y": 159
+        "y": 148
       },
       "id": 17,
       "options": {
@@ -3012,7 +2901,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 233
+        "y": 222
       },
       "id": 3,
       "options": {
@@ -3038,7 +2927,7 @@
         "h": 3,
         "w": 24,
         "x": 0,
-        "y": 239
+        "y": 228
       },
       "id": 18,
       "options": {
@@ -3152,6 +3041,6 @@
   "timezone": "Europe/Amsterdam",
   "title": "All Devices and Organizations Performance",
   "uid": "f1a783f2-b3c4-4e7a-8c3d-5f2d7c1e6b7f",
-  "version": 13,
+  "version": 15,
   "weekStart": "monday"
 }
