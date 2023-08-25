@@ -21,6 +21,8 @@ services:
       - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/device-performance.json
       - ENV GF_ENABLE_GZIP=true
       - ENV GF_USERS_DEFAULT_THEME=light
+      - ENV GF_AUTH_BASIC_ENABLED=false
+
     volumes:
       - ./grafana/provisioning:/etc/grafana/provisioning
       - ./grafana/dashboards:/var/lib/grafana/dashboards  

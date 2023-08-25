@@ -26,6 +26,308 @@
         "type": "postgres",
         "uid": "P052245A3190431CB"
       },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 23,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "sum"
+          ],
+          "fields": "/^count$/",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P052245A3190431CB"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "WITH AlertCounts AS (\n    SELECT \n        device_identifier,\n        SUM(CASE WHEN kpi_alert_count > 0 THEN 1 ELSE 0 END) AS alerting_devices,\n        SUM(CASE WHEN kpi_alert_count = 0 THEN 1 ELSE 0 END) AS non_alerting_devices\n    FROM kpi_1d\n    WHERE time >= to_date('${start_date}', 'YYYY-MM') AND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month' \n    AND org_identifier IN (${org_identifier})\n    GROUP BY device_identifier\n)\n\nSELECT \n    'Devices with Alerts' AS category, \n    SUM(alerting_devices) AS count\nFROM AlertCounts\nUNION ALL\nSELECT \n    'Devices without Alerts' AS category, \n    SUM(non_alerting_devices) AS count\nFROM AlertCounts;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "The percentage of all Devices with Alerts versus without Alerts for Organization ID ${org_identifier}",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "kpi_type_code"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "RA_CAM_QUALITY": {
+                        "index": 0,
+                        "text": "CAM compliance"
+                      },
+                      "RA_CLOCK_DIFF": {
+                        "index": 1,
+                        "text": "Clock drift"
+                      },
+                      "RA_CONNECTED_PERCENTAGE": {
+                        "index": 2,
+                        "text": "Percentage of time connected (uptime)"
+                      },
+                      "RA_EXCEPTIONAL_CONDITION_PERCENTAGE": {
+                        "index": 3,
+                        "text": "Percentage red with special conditions"
+                      },
+                      "RA_MAP_FREQUENCY": {
+                        "index": 4,
+                        "text": "MAP frequency"
+                      },
+                      "RA_MAP_QUALITY": {
+                        "index": 5,
+                        "text": "MAP compliance"
+                      },
+                      "RA_PREDICTION_CONFIDENCE_PERCENTAGE": {
+                        "index": 6,
+                        "text": "Percentage prediction with high certainty (confidence)"
+                      },
+                      "RA_PREDICTION_LIKELY_DELTA": {
+                        "index": 7,
+                        "text": "Deviation prediction (likely)"
+                      },
+                      "RA_PREDICTION_LIKELY_PERCENTAGE": {
+                        "index": 8,
+                        "text": "Percent Prediction (Likely)"
+                      },
+                      "RA_PREDICTION_WINDOW_PERCENTAGE": {
+                        "index": 26,
+                        "text": "Percent Prediction (min/max)"
+                      },
+                      "RA_PREDICTION_WINDOW_SIZE": {
+                        "index": 27,
+                        "text": "Bandwidth prediction (min/max)"
+                      },
+                      "RA_PRIORITY_ANSWERED_PERCENTAGE": {
+                        "index": 25,
+                        "text": "Percentage of priority request answered"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_DELTA_EMERGENCY": {
+                        "index": 18,
+                        "text": "Deviation ETA granted priority request emergency services"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_DELTA_OTHER": {
+                        "index": 19,
+                        "text": "Deviation ETA assigned priority request other"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_GREEN_DELTA_EMERGENCY": {
+                        "index": 20,
+                        "text": "Time between ETA priority request and actually green emergency services"
+                      },
+                      "RA_PRIORITY_GRANTED_ETA_GREEN_DELTA_OTHER": {
+                        "index": 21,
+                        "text": "Tijd tussen ETA prioriteitsverzoek en daadwerkelijk groen overig"
+                      },
+                      "RA_PRIORITY_GRANTED_PERCENTAGE_EMERGENCY": {
+                        "index": 22,
+                        "text": "Percentage of emergency services priority request granted"
+                      },
+                      "RA_PRIORITY_GRANTED_PERCENTAGE_OTHER": {
+                        "index": 23,
+                        "text": "Percentage toegekend prioriteitsverzoek overig"
+                      },
+                      "RA_ROUNDTRIP_LATENCY": {
+                        "index": 24,
+                        "text": "Latency connection (round trip)"
+                      },
+                      "RA_SAT_MISSING_DAYS": {
+                        "index": 9,
+                        "text": "Days in production without iSAT"
+                      },
+                      "RA_SESSION_CREATIONS": {
+                        "index": 10,
+                        "text": "Connection attempts"
+                      },
+                      "RA_SPAT_FREQUENCY": {
+                        "index": 11,
+                        "text": "SPAT frequency"
+                      },
+                      "RA_SPAT_QUALITY": {
+                        "index": 12,
+                        "text": "SPAT compliance"
+                      },
+                      "RA_SRM_QUALITY": {
+                        "index": 14,
+                        "text": "SRM compliance"
+                      },
+                      "RA_SSM_QUALITY": {
+                        "index": 13,
+                        "text": "SSM compliance"
+                      },
+                      "RA_STATION_COUNT": {
+                        "index": 15,
+                        "text": "Traffic intensity"
+                      },
+                      "RA_SUBJECT_STATE": {
+                        "index": 16,
+                        "text": "Object status"
+                      },
+                      "RA_TLCCONF_QUALITY": {
+                        "index": 17,
+                        "text": "TLC Conf conformance"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "id": 24,
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^alert_count$/",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "postgres",
+            "uid": "P052245A3190431CB"
+          },
+          "editorMode": "code",
+          "format": "table",
+          "rawQuery": true,
+          "rawSql": "SELECT \n    kpi_type_code,\n    COUNT(*) AS alert_count\nFROM kpi_1d\nWHERE kpi_alert_count > 0 AND (time >= to_date('${start_date}', 'YYYY-MM') AND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month' )\nAND org_identifier IN (${org_identifier})\nGROUP BY kpi_type_code\nORDER BY alert_count DESC;\n",
+          "refId": "A",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        }
+      ],
+      "title": "Distribution of Alerts by KPI for All Devices for Organization ID ${org_identifier}",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
       "description": "The yearly trend of alerts",
       "fieldConfig": {
         "defaults": {
@@ -77,7 +379,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 21
       },
       "id": 16,
       "options": {
@@ -304,7 +606,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 32
       },
       "id": 20,
       "options": {
@@ -330,7 +632,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT kpi_type_code, COUNT(*) as occurrences\nFROM kpi_1d\nWHERE kpi_value_last < kpi_alert_condition_lower_limit_last OR kpi_value_last > kpi_alert_condition_upper_limit_last\nAND org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code\nORDER BY occurrences DESC;\n",
+          "rawSql": "SELECT kpi_type_code, COUNT(*) as occurrences\nFROM kpi_1d\nWHERE (kpi_value_last < kpi_alert_condition_lower_limit_last OR kpi_value_last > kpi_alert_condition_upper_limit_last)\nAND org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code\nORDER BY occurrences DESC;\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -517,10 +819,10 @@
         ]
       },
       "gridPos": {
-        "h": 8,
-        "w": 12,
+        "h": 7,
+        "w": 24,
         "x": 0,
-        "y": 21
+        "y": 42
       },
       "id": 21,
       "options": {
@@ -737,9 +1039,9 @@
       },
       "gridPos": {
         "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 21
+        "w": 24,
+        "x": 0,
+        "y": 49
       },
       "id": 22,
       "options": {
@@ -768,7 +1070,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT kpi_type_code, COUNT(*) as occurrences\nFROM kpi_1d\nWHERE kpi_value_last < kpi_alert_condition_lower_limit_last\nAND org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code\nORDER BY occurrences DESC;\n",
+          "rawSql": "SELECT kpi_type_code, COUNT(*) as occurrences\nFROM kpi_1d\nWHERE (kpi_value_last < kpi_alert_condition_lower_limit_last)\nAND org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code\nORDER BY occurrences DESC;\n",
           "refId": "A",
           "sql": {
             "columns": [
@@ -978,7 +1280,7 @@
         "h": 14,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 57
       },
       "id": 14,
       "options": {
@@ -1015,7 +1317,7 @@
           "editorMode": "code",
           "format": "table",
           "rawQuery": true,
-          "rawSql": "SELECT kpi_type_code, SUM(kpi_alert_count) as total_alerts\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nAND time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month'\nGROUP BY kpi_type_code\nORDER BY total_alerts DESC\nLIMIT 10; -- Top 5 KPIs",
+          "rawSql": "SELECT kpi_type_code, SUM(kpi_alert_count) as total_alerts\nFROM kpi_1d\nWHERE org_identifier IN (${org_identifier})\nAND (time >= to_date('${start_date}', 'YYYY-MM')\nAND time < to_date('${end_date}', 'YYYY-MM') + INTERVAL '1 month')\nGROUP BY kpi_type_code\nORDER BY total_alerts DESC\nLIMIT 10; -- Top 10 KPIs",
           "refId": "A",
           "sql": {
             "columns": [
@@ -1224,7 +1526,7 @@
         "h": 16,
         "w": 24,
         "x": 0,
-        "y": 43
+        "y": 71
       },
       "id": 12,
       "options": {
@@ -1353,7 +1655,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 59
+        "y": 87
       },
       "id": 10,
       "options": {
@@ -1474,7 +1776,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 68
+        "y": 96
       },
       "id": 19,
       "options": {
@@ -1553,7 +1855,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 77
+        "y": 105
       },
       "id": 11,
       "options": {
@@ -1669,7 +1971,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 77
+        "y": 105
       },
       "id": 9,
       "options": {
@@ -1748,7 +2050,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 85
+        "y": 113
       },
       "id": 8,
       "options": {
@@ -1971,7 +2273,7 @@
         "h": 14,
         "w": 24,
         "x": 0,
-        "y": 92
+        "y": 120
       },
       "id": 5,
       "options": {
@@ -2209,7 +2511,7 @@
         "h": 74,
         "w": 24,
         "x": 0,
-        "y": 106
+        "y": 134
       },
       "id": 17,
       "options": {
@@ -2439,7 +2741,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 180
+        "y": 208
       },
       "id": 1,
       "options": {
@@ -2495,10 +2797,10 @@
         "uid": "P052245A3190431CB"
       },
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 24,
         "x": 0,
-        "y": 189
+        "y": 217
       },
       "id": 3,
       "options": {
@@ -2524,7 +2826,7 @@
         "h": 3,
         "w": 24,
         "x": 0,
-        "y": 193
+        "y": 222
       },
       "id": 18,
       "options": {
@@ -2580,7 +2882,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "93003",
           "value": "93003"
         },

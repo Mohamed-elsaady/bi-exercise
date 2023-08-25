@@ -59,6 +59,13 @@ When using the included docker setup, the data is loaded into the TimescaleDB sc
 # Docker Setup
 This repository contains a docker based setup that can be used for running the required TimescaleDB (loaded with the sample data) and a Grafana instance connected to this database. This setup requires a working docker environment and local ports `tcp/3000` and `tcp/5432` to be free. The setup has been verified to work on Ubuntu, MacOS and Windows (using WSL).
 
+Just in case id you face any premission problem use the folloiwng commands:
+
+* sudo chown -R $USER /grafana
+* chmod -R 755 /grafana
+* sudo chown -R 472:472 /bi-ecxerise
+
+
 ## Start
 In order to start the docker compose based setup, run `start.sh`
 
@@ -77,6 +84,5 @@ In order to stop and clean the docker compose based setup, run `clean.sh`
 
 Created Grafana dashboard will be lost when stopping the environment! The TimescaleDB data is also removed when running clean.
 
-sudo chown -R $USER /grafana
-chmod -R 755 /grafana
+
 
