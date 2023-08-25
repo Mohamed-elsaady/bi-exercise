@@ -26,6 +26,62 @@
         "type": "postgres",
         "uid": "P052245A3190431CB"
       },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 18,
+      "options": {
+        "activeTheme": "Monotch",
+        "disableThemePicker": true,
+        "themes": [
+          {
+            "name": "Monotch",
+            "styles": [
+              {
+                "props": {
+                  "theme": "light"
+                },
+                "type": "basetheme"
+              },
+              {
+                "props": {
+                  "url": ""
+                },
+                "type": "bgimage"
+              },
+              {
+                "props": {
+                  "url": ""
+                },
+                "type": "url"
+              },
+              {
+                "props": {
+                  "text": ".gf-form-label--variable {\n    color: #e74536 !Important;\n}\n.grafana-app {\n    background: #f7f5f0 !important;\n}\n\n.css-60onds {\n    padding-top: 130px !Important;\n}\n\n.css-15okvyg {\n    height: 80px !Important;\n}\n.css-1m01c8l {\n    width: 131px !Important;\n    height: 71px !Important;\n}\n\nh6 {\n    color: #03050d !important;\n    font-size: 1.1rem;\n    -webkit-font-smoothing: antialiased;\n}"
+                },
+                "type": "style"
+              },
+              {
+                "props": {
+                  "color": "f7f5f0"
+                },
+                "type": "panel-container-bg-color"
+              }
+            ]
+          }
+        ]
+      },
+      "pluginVersion": "0.2.1",
+      "type": "yesoreyeram-boomtheme-panel"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -46,7 +102,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 23,
       "options": {
@@ -135,7 +191,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 11
       },
       "id": 8,
       "options": {
@@ -351,7 +407,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 17
+        "y": 18
       },
       "id": 24,
       "options": {
@@ -449,7 +505,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -465,7 +522,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 28
+        "y": 29
       },
       "id": 16,
       "options": {
@@ -541,7 +598,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "#257f24"
+                "color": "#257f24",
+                "value": null
               },
               {
                 "color": "#ffb511",
@@ -691,7 +749,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 39
+        "y": 40
       },
       "id": 20,
       "options": {
@@ -756,7 +814,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "#257f24"
+                "color": "#257f24",
+                "value": null
               },
               {
                 "color": "#ffb511",
@@ -906,7 +965,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 49
+        "y": 50
       },
       "id": 21,
       "options": {
@@ -974,7 +1033,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "#257f24"
+                "color": "#257f24",
+                "value": null
               },
               {
                 "color": "#ffb511",
@@ -1124,7 +1184,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 57
+        "y": 58
       },
       "id": 22,
       "options": {
@@ -1215,7 +1275,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1362,7 +1423,7 @@
         "h": 14,
         "w": 24,
         "x": 0,
-        "y": 64
+        "y": 65
       },
       "id": 14,
       "options": {
@@ -1460,7 +1521,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1607,7 +1669,7 @@
         "h": 16,
         "w": 24,
         "x": 0,
-        "y": 78
+        "y": 79
       },
       "id": 12,
       "options": {
@@ -1719,7 +1781,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1735,7 +1798,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 94
+        "y": 95
       },
       "id": 10,
       "options": {
@@ -1840,7 +1903,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1855,7 +1919,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 103
+        "y": 104
       },
       "id": 19,
       "options": {
@@ -1934,7 +1998,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 112
+        "y": 113
       },
       "id": 11,
       "options": {
@@ -2030,7 +2094,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "orange",
@@ -2049,7 +2114,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 112
+        "y": 113
       },
       "id": 9,
       "options": {
@@ -2117,7 +2182,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "#257f24"
+                "color": "#257f24",
+                "value": null
               },
               {
                 "color": "#e74536",
@@ -2263,7 +2329,7 @@
         "h": 14,
         "w": 24,
         "x": 0,
-        "y": 120
+        "y": 121
       },
       "id": 5,
       "options": {
@@ -2353,7 +2419,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2500,7 +2567,7 @@
         "h": 74,
         "w": 24,
         "x": 0,
-        "y": 134
+        "y": 135
       },
       "id": 17,
       "options": {
@@ -2583,7 +2650,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2729,7 +2797,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 208
+        "y": 209
       },
       "id": 1,
       "options": {
@@ -2788,7 +2856,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 217
+        "y": 218
       },
       "id": 3,
       "options": {
@@ -2804,62 +2872,6 @@
       "pluginVersion": "9.5.2",
       "title": "Dashboards",
       "type": "dashlist"
-    },
-    {
-      "datasource": {
-        "type": "postgres",
-        "uid": "P052245A3190431CB"
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 24,
-        "x": 0,
-        "y": 223
-      },
-      "id": 18,
-      "options": {
-        "activeTheme": "Monotch",
-        "disableThemePicker": true,
-        "themes": [
-          {
-            "name": "Monotch",
-            "styles": [
-              {
-                "props": {
-                  "theme": "light"
-                },
-                "type": "basetheme"
-              },
-              {
-                "props": {
-                  "url": ""
-                },
-                "type": "bgimage"
-              },
-              {
-                "props": {
-                  "url": ""
-                },
-                "type": "url"
-              },
-              {
-                "props": {
-                  "text": ".gf-form-label--variable {\n    color: #e74536 !Important;\n}\n.grafana-app {\n    background: #f7f5f0 !important;\n}\n\n.css-60onds {\n    padding-top: 130px !Important;\n}\n\n.css-15okvyg {\n    height: 80px !Important;\n}\n.css-1m01c8l {\n    width: 131px !Important;\n    height: 71px !Important;\n}\n\nh6 {\n    color: #03050d !important;\n    font-size: 1.1rem;\n    -webkit-font-smoothing: antialiased;\n}"
-                },
-                "type": "style"
-              },
-              {
-                "props": {
-                  "color": "f7f5f0"
-                },
-                "type": "panel-container-bg-color"
-              }
-            ]
-          }
-        ]
-      },
-      "pluginVersion": "0.2.1",
-      "type": "yesoreyeram-boomtheme-panel"
     }
   ],
   "refresh": "",
@@ -2870,7 +2882,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "4063363252",
           "value": "4063363252"
         },
@@ -2952,6 +2964,6 @@
   "timezone": "Europe/Amsterdam",
   "title": "Device Performance",
   "uid": "afc8c7b8-e08c-4bfa-9186-920d8c3aa1ad",
-  "version": 10,
+  "version": 11,
   "weekStart": "monday"
 }

@@ -26,6 +26,62 @@
         "type": "postgres",
         "uid": "P052245A3190431CB"
       },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 18,
+      "options": {
+        "activeTheme": "Monotch",
+        "disableThemePicker": true,
+        "themes": [
+          {
+            "name": "Monotch",
+            "styles": [
+              {
+                "props": {
+                  "theme": "light"
+                },
+                "type": "basetheme"
+              },
+              {
+                "props": {
+                  "url": ""
+                },
+                "type": "bgimage"
+              },
+              {
+                "props": {
+                  "url": ""
+                },
+                "type": "url"
+              },
+              {
+                "props": {
+                  "text": ".gf-form-label--variable {\n    color: #e74536 !Important;\n}\n.grafana-app {\n    background: #f7f5f0 !important;\n}\n\n.css-60onds {\n    padding-top: 130px !Important;\n}\n\n.css-15okvyg {\n    height: 80px !Important;\n}\n.css-1m01c8l {\n    width: 131px !Important;\n    height: 71px !Important;\n}\n\nh6 {\n    color: #03050d !important;\n    font-size: 1.1rem;\n    -webkit-font-smoothing: antialiased;\n}\n"
+                },
+                "type": "style"
+              },
+              {
+                "props": {
+                  "color": "f7f5f0"
+                },
+                "type": "panel-container-bg-color"
+              }
+            ]
+          }
+        ]
+      },
+      "pluginVersion": "0.2.1",
+      "type": "yesoreyeram-boomtheme-panel"
+    },
+    {
+      "datasource": {
+        "type": "postgres",
+        "uid": "P052245A3190431CB"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -46,7 +102,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 23,
       "options": {
@@ -264,7 +320,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 12
       },
       "id": 24,
       "options": {
@@ -379,7 +435,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 22
       },
       "id": 16,
       "options": {
@@ -606,7 +662,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 33
       },
       "id": 20,
       "options": {
@@ -822,7 +878,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 42
+        "y": 43
       },
       "id": 21,
       "options": {
@@ -1041,7 +1097,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 49
+        "y": 50
       },
       "id": 22,
       "options": {
@@ -1280,7 +1336,7 @@
         "h": 14,
         "w": 24,
         "x": 0,
-        "y": 57
+        "y": 58
       },
       "id": 14,
       "options": {
@@ -1526,7 +1582,7 @@
         "h": 16,
         "w": 24,
         "x": 0,
-        "y": 71
+        "y": 72
       },
       "id": 12,
       "options": {
@@ -1655,7 +1711,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 87
+        "y": 88
       },
       "id": 10,
       "options": {
@@ -1776,7 +1832,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 96
+        "y": 97
       },
       "id": 19,
       "options": {
@@ -1855,7 +1911,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 105
+        "y": 106
       },
       "id": 11,
       "options": {
@@ -1971,7 +2027,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 105
+        "y": 106
       },
       "id": 9,
       "options": {
@@ -2050,7 +2106,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 113
+        "y": 114
       },
       "id": 8,
       "options": {
@@ -2273,7 +2329,7 @@
         "h": 14,
         "w": 24,
         "x": 0,
-        "y": 120
+        "y": 121
       },
       "id": 5,
       "options": {
@@ -2511,7 +2567,7 @@
         "h": 74,
         "w": 24,
         "x": 0,
-        "y": 134
+        "y": 135
       },
       "id": 17,
       "options": {
@@ -2741,7 +2797,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 208
+        "y": 209
       },
       "id": 1,
       "options": {
@@ -2800,7 +2856,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 217
+        "y": 218
       },
       "id": 3,
       "options": {
@@ -2816,62 +2872,6 @@
       "pluginVersion": "9.5.2",
       "title": "Dashboards",
       "type": "dashlist"
-    },
-    {
-      "datasource": {
-        "type": "postgres",
-        "uid": "P052245A3190431CB"
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 24,
-        "x": 0,
-        "y": 222
-      },
-      "id": 18,
-      "options": {
-        "activeTheme": "Monotch",
-        "disableThemePicker": true,
-        "themes": [
-          {
-            "name": "Monotch",
-            "styles": [
-              {
-                "props": {
-                  "theme": "light"
-                },
-                "type": "basetheme"
-              },
-              {
-                "props": {
-                  "url": ""
-                },
-                "type": "bgimage"
-              },
-              {
-                "props": {
-                  "url": ""
-                },
-                "type": "url"
-              },
-              {
-                "props": {
-                  "text": ".gf-form-label--variable {\n    color: #e74536 !Important;\n}\n.grafana-app {\n    background: #f7f5f0 !important;\n}\n\n.css-60onds {\n    padding-top: 130px !Important;\n}\n\n.css-15okvyg {\n    height: 80px !Important;\n}\n.css-1m01c8l {\n    width: 131px !Important;\n    height: 71px !Important;\n}\n\nh6 {\n    color: #03050d !important;\n    font-size: 1.1rem;\n    -webkit-font-smoothing: antialiased;\n}\n"
-                },
-                "type": "style"
-              },
-              {
-                "props": {
-                  "color": "f7f5f0"
-                },
-                "type": "panel-container-bg-color"
-              }
-            ]
-          }
-        ]
-      },
-      "pluginVersion": "0.2.1",
-      "type": "yesoreyeram-boomtheme-panel"
     }
   ],
   "refresh": "",
@@ -2964,6 +2964,6 @@
   "timezone": "Europe/Amsterdam",
   "title": "Organization Performance",
   "uid": "d0e693b4-839d-4d5d-aff8-2a61d6fa8452",
-  "version": 2,
+  "version": 3,
   "weekStart": "monday"
 }
