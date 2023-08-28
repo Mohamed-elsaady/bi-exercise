@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Device-perfromance" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d4a1d5eb-82dd-412f-a620-202e4bdf9dba">
+	<property name="template.engine" value="tabular_template"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+	<property name="com.jaspersoft.studio.data.sql.tables">
+		<![CDATA[a3BpXzFkIEFTICwzMiwzNCxlNWMxNWJmNi1kZjk0LTRmMWUtOTNhMS02YzFkNTZjMzZkYTc7a3Bp
+X3R5cGUgQVMgLDI5MSw1Miw5NDYxN2ZiYS1iMTQxLTQ4NjAtODc4ZS02Y2YxOWQ5ZDQ5MDk7]]>
+	</property>
+	<style name="Table" fontName="Helvetica Neue" fontSize="12">
+		<box padding="4">
+			<pen lineWidth="1.0" lineColor="#000000"/>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<leftPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+			<rightPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Table_TH" mode="Opaque" backcolor="#E74536">
+		<box>
+			<pen lineWidth="0.5" lineColor="#E4E4E4"/>
+			<topPen lineWidth="0.5" lineColor="#E4E4E4"/>
+			<leftPen lineWidth="0.5" lineColor="#E4E4E4"/>
+			<bottomPen lineWidth="0.5" lineColor="#E4E4E4"/>
+			<rightPen lineWidth="0.5" lineColor="#E4E4E4"/>
+		</box>
+	</style>
+	<style name="Table_CH" mode="Opaque" backcolor="#E74536">
+		<box>
+			<pen lineWidth="0.5" lineColor="#E4E4E4"/>
+			<topPen lineWidth="0.5" lineColor="#E4E4E4"/>
+			<leftPen lineWidth="0.5" lineColor="#E4E4E4"/>
+			<bottomPen lineWidth="0.5" lineColor="#E4E4E4"/>
+			<rightPen lineWidth="0.5" lineColor="#E4E4E4"/>
+		</box>
+	</style>
+	<style name="Table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#E4E4E4"/>
+			<topPen lineWidth="0.5" lineColor="#E4E4E4"/>
+			<leftPen lineWidth="0.5" lineColor="#E4E4E4"/>
+			<bottomPen lineWidth="0.5" lineColor="#E4E4E4"/>
+			<rightPen lineWidth="0.5" lineColor="#E4E4E4"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFEFEF"/>
+		</conditionalStyle>
+	</style>
+	<style name="Custom Blue" mode="Opaque" backcolor="#D7D7D7" hTextAlign="Center" vTextAlign="Middle" fontName="Helvetica Neue" fontSize="11" isUnderline="true"/>
+	<style name="Sum cell" mode="Opaque" forecolor="#FFFFFF" backcolor="#6BA5B4" hTextAlign="Center" vTextAlign="Middle" fontName="Helvetica Neue" fontSize="11" isBold="true" isUnderline="true"/>
+	<subDataset name="tableDataset" uuid="49487618-e0d9-4414-9dd2-a35320854df8">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<parameter name="Organization" class="java.lang.Integer" evaluationTime="Early">
+			<defaultValueExpression><![CDATA[$P{Organization}]]></defaultValueExpression>
+		</parameter>
+		<queryString language="SQL">
+			<![CDATA[SELECT 
+    EXTRACT(YEAR FROM kpi_1d.time) AS year,
+    EXTRACT(MONTH FROM kpi_1d.time) AS month,
+    kpi_1d.device_identifier,
+    kpi_1d.org_identifier,
+    SUM(kpi_1d.kpi_alert_count) AS total_alert_count,
+    SUM(kpi_1d.kpi_count) AS total_kpi_count
+FROM kpi_1d
+WHERE ($P{Organization} IS NULL OR   kpi_1d.org_identifier = $P{Organization})
+GROUP BY 
+     EXTRACT(YEAR FROM kpi_1d.time),
+    EXTRACT(MONTH FROM kpi_1d.time),
+    kpi_1d.device_identifier,  kpi_1d.org_identifier
+ORDER BY kpi_1d.device_identifier, year, month;]]>
+		</queryString>
+		<field name="year" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="year"/>
+			<property name="com.jaspersoft.studio.field.label" value="year"/>
+		</field>
+		<field name="month" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="month"/>
+			<property name="com.jaspersoft.studio.field.label" value="month"/>
+		</field>
+		<field name="device_identifier" class="java.lang.Long">
+			<property name="com.jaspersoft.studio.field.name" value="device_identifier"/>
+			<property name="com.jaspersoft.studio.field.label" value="device_identifier"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="kpi_1d"/>
+		</field>
+		<field name="org_identifier" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="org_identifier"/>
+			<property name="com.jaspersoft.studio.field.label" value="org_identifier"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="kpi_1d"/>
+		</field>
+		<field name="total_alert_count" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="total_alert_count"/>
+			<property name="com.jaspersoft.studio.field.label" value="total_alert_count"/>
+		</field>
+		<field name="total_kpi_count" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.name" value="total_kpi_count"/>
+			<property name="com.jaspersoft.studio.field.label" value="total_kpi_count"/>
+		</field>
+		<group name="Device Group" isStartNewPage="true" isReprintHeaderOnEachPage="true" isReprintHeaderOnEachColumn="true" keepTogether="true">
+			<groupExpression><![CDATA[$F{org_identifier}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="Organization" class="java.lang.Integer" evaluationTime="Early">
+		<parameterDescription><![CDATA[Enter the organization identifier or leave blank for all organizations.]]></parameterDescription>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<title>
+		<band height="84">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="104" backcolor="#0F1941" uuid="6321f5e3-86eb-444f-acc1-8daaaa0d6c60"/>
+				<staticText>
+					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="0a399baa-bad3-4b1a-9fe3-bb1c563e6a27"/>
+					<textElement textAlignment="Right">
+						<font fontName="Helvetica Neue" size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Device Pefromance]]></text>
+				</staticText>
+				<image>
+					<reportElement x="30" y="20" width="210" height="50" uuid="5e75c4ee-9d97-45f0-be3e-19abe7ec94e5"/>
+					<imageExpression><![CDATA["https://www.monotch.com/wp-content/uploads/2022/03/2nd-msmp-horizontal-white-text-1024x259.png"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<pageFooter>
+		<band height="49">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="fed27553-a6c4-4a8a-9056-2f6f2589a3e5"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="9f5ad531-d413-49c9-874b-8b99e8150fa6"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="fc593335-5cbf-4caf-97b3-ff897c676bde"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="390" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<frame>
+				<reportElement stretchType="ContainerHeight" mode="Opaque" x="-20" y="-30" width="595" height="420" backcolor="#F7F5F0" uuid="35ae777e-43df-442d-8be3-c7ef5fd93fe7"/>
+				<componentElement>
+					<reportElement stretchType="ContainerHeight" x="20" y="87" width="560" height="260" uuid="23015c1d-58c9-455b-bcd1-ba1737cee10d">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+						<property name="com.jaspersoft.studio.table.style.table_header" value="Table_TH"/>
+						<property name="com.jaspersoft.studio.table.style.column_header" value="Table_CH"/>
+						<property name="com.jaspersoft.studio.table.style.detail" value="Table_TD"/>
+						<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					</reportElement>
+					<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+						<datasetRun subDataset="tableDataset" uuid="d73154b5-5f5a-4c5d-8411-b018d6dbc8c1">
+							<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+						</datasetRun>
+						<jr:column width="99" uuid="eebc7651-b222-4cc2-b9a6-c33ca9559f4e">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+							<jr:groupFooter groupName="Device Group">
+								<jr:cell height="30"/>
+							</jr:groupFooter>
+							<jr:columnHeader style="Table_CH" height="50">
+								<staticText>
+									<reportElement x="0" y="0" width="99" height="50" uuid="92d7dd1e-2bb6-4cfa-af59-96e9cafaf2cd"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Helvetica Neue" size="11" isBold="false"/>
+									</textElement>
+									<text><![CDATA[Device ID]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement x="0" y="0" width="99" height="30" uuid="7a767a05-5071-45ea-83f6-e50673bd535b"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Helvetica Neue"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{device_identifier}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="101" uuid="6d703167-0ac3-4cb4-92f0-e670c0460632">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+							<jr:groupFooter groupName="Device Group">
+								<jr:cell height="30"/>
+							</jr:groupFooter>
+							<jr:columnHeader style="Table_CH" height="50">
+								<staticText>
+									<reportElement x="0" y="0" width="101" height="50" uuid="47220c20-5626-4393-8478-c683872bf507"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Helvetica Neue&#xA;Helvetica Neue" size="11" isBold="false"/>
+									</textElement>
+									<text><![CDATA[Month/Year]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement x="0" y="0" width="101" height="30" uuid="d7d2ff75-59fc-4583-958b-92d363538edf"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Helvetica Neue"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{month} + "/" + $F{year}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="94" uuid="02b7fec6-f2c8-44e0-9bed-2c498d9677d6">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+							<jr:groupFooter groupName="Device Group">
+								<jr:cell height="30"/>
+							</jr:groupFooter>
+							<jr:columnHeader style="Table_CH" height="50">
+								<staticText>
+									<reportElement x="0" y="0" width="94" height="50" uuid="a2622eb1-5824-488f-9db0-88d8e14a46e6"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Helvetica Neue" size="11" isBold="false"/>
+									</textElement>
+									<text><![CDATA[Organization ID]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement x="0" y="0" width="94" height="30" uuid="230ed8b2-6aeb-4732-8c4b-b8ed081bcc48"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Helvetica Neue"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{org_identifier}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="126" uuid="0d0a35bf-df47-4a51-b773-e195707601c1">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+							<jr:groupFooter groupName="Device Group">
+								<jr:cell style="Sum cell" height="30">
+									<textField>
+										<reportElement x="0" y="0" width="126" height="30" uuid="8a4cb23e-d6b3-4172-8e09-85bcbce2f9a6"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Helvetica Neue"/>
+										</textElement>
+										<textFieldExpression><![CDATA["Total = " + SUM( $F{total_kpi_count})]]></textFieldExpression>
+									</textField>
+								</jr:cell>
+							</jr:groupFooter>
+							<jr:columnHeader style="Table_CH" height="50">
+								<staticText>
+									<reportElement x="0" y="0" width="126" height="50" uuid="b2d939df-3172-49d4-b083-6ab2608c6aed"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Helvetica Neue" size="11" isBold="false"/>
+									</textElement>
+									<text><![CDATA[Total KPI Count]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement x="0" y="0" width="126" height="30" uuid="023c58f4-e4ce-4750-8c0a-17c5d4270ab1"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Helvetica Neue"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{total_kpi_count}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:column width="140" uuid="e911e372-b4d0-4bf6-9b24-3ddb09be0c35">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+							<jr:groupFooter groupName="Device Group">
+								<jr:cell style="Sum cell" height="30">
+									<textField>
+										<reportElement x="0" y="0" width="140" height="30" uuid="ac7dbfc2-6c2a-4a25-9ab9-30b9cab83d90"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Helvetica Neue"/>
+										</textElement>
+										<textFieldExpression><![CDATA["Total = " + SUM( $F{total_alert_count})]]></textFieldExpression>
+									</textField>
+								</jr:cell>
+							</jr:groupFooter>
+							<jr:columnHeader style="Table_CH" height="50">
+								<staticText>
+									<reportElement x="0" y="0" width="140" height="50" uuid="cade9d3a-f62e-42cb-aaf1-af86bfa0dc65"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Helvetica Neue" size="11" isBold="false"/>
+									</textElement>
+									<text><![CDATA[Total Alert Count]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="Table_TD" height="30">
+								<textField>
+									<reportElement x="0" y="0" width="140" height="30" uuid="554ea9f6-bee1-4c50-a6d8-d21395d092bc"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Helvetica Neue"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{total_alert_count}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
+						</jr:column>
+						<jr:tableHeader splitType="Stretch"/>
+						<jr:groupFooter groupName="Device Group">
+							<jr:row splitType="Prevent"/>
+						</jr:groupFooter>
+					</jr:table>
+				</componentElement>
+				<textField>
+					<reportElement x="20" y="30" width="500" height="30" uuid="0de7be29-2557-45e2-87ef-70ad6c69c2d1"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Helvetica Neue" size="11"/>
+					</textElement>
+					<textFieldExpression><![CDATA["This report provides a monthly breakdown of total alerts and KPI counts for each device."]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</summary>
+</jasperReport>
